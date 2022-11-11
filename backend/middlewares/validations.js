@@ -42,3 +42,25 @@ module.exports.validateLogin = celebrate({
     password: Joi.string().required(),
   }),
 });
+
+module.exports.validateMovieId = celebrate({
+  params: Joi.object().keys({
+    movieId: Joi.number().required(),
+  }),
+});
+
+module.exports.validateCreateMovie = celebrate({
+  body: Joi.object().keys({
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: Joi.string().custom(validateLink),
+    trailerLink: Joi.string().custom(validateLink),
+    thumbnail: Joi.string().custom(validateLink),
+    movieId: Joi.number().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+  }),
+});

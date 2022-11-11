@@ -12,7 +12,6 @@ const UnauthorizedError = require('../error/UnauthorizedError');
 module.exports.auth = (req, res, next) => {
   try {
     const token = req.headers.authorization.replace('Bearer ', '');
-    console.log(token);
     if (!token) {
       return next(new UnauthorizedError('Отсутствует токен'));
     }
@@ -20,8 +19,6 @@ module.exports.auth = (req, res, next) => {
     req.user = payload;
     return next();
   } catch (err) {
-    console.log(req.headers);
-    console.log(req.headers.authorization);
     if (err.name === 'JsonWebTokenError') {
       return next(new UnauthorizedError('Некорректный токен'));
     }

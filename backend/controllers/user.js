@@ -15,16 +15,6 @@ const UnauthorizedError = require('../error/UnauthorizedError');
 const ValidationError = require('../error/ValidationError');
 const ConflictError = require('../error/ConflictError');
 
-module.exports.getAllUsers = (req, res, next) => {
-  User.find({})
-    .then((user) => {
-      res.send({ data: user });
-    })
-    .catch(() => {
-      next(new ServerError('Ошибка на сервере'));
-    });
-};
-
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
@@ -97,7 +87,7 @@ module.exports.loginUser = (req, res, next) => {
           return next(new UnauthorizedError('Неверный пароль'));
         }
         const token = jwt.sign({ _id: user._id }, (NODE_ENV === 'production') ? JWT_SECRET : 'secret', { expiresIn: '7d' });
-        return res.send({ token }).end();
+        return res.send({ token });
       });
     })
     .catch(() => {

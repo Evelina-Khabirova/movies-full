@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const routerUser = require('./routers/user');
-//const routerMovie = require('./routers/movie');
+const routerMovie = require('./routers/movie');
 const { loginUser, registerUser } = require('./controllers/user');
 const { auth } = require('./middlewares/auth');
 const { validateLogin, validateCreateUser } = require('./middlewares/validations');
@@ -30,7 +30,7 @@ app.post('/signin', validateLogin, loginUser);
 app.post('/signup', validateCreateUser, registerUser);
 app.use(auth);
 app.use('/', routerUser);
-//app.use('/', routerMovie);
+app.use('/', routerMovie);
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Сервер не найден'));
   next();
