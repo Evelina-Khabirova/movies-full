@@ -21,23 +21,11 @@ module.exports.getUser = (req, res, next) => {
       if (!user) {
         return next(new NotFoundError('Пользователь не найден'));
       }
-      return res.send({ data: user });
-    })
-    .catch((err) => {
-      if (err.kind === 'ObjectId') {
-        return next(new ValidationError('Получен неверный ID'));
-      }
-      return next(new ServerError('Ошибка на сервере'));
-    });
-};
-
-module.exports.getUserId = (req, res, next) => {
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (!user) {
-        return next(new NotFoundError('Пользователь не найден'));
-      }
-      return res.send({ data: user });
+      return res.send({
+        name: user.name,
+        email: user.email,
+        _id: user._id,
+      });
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {
@@ -59,7 +47,11 @@ module.exports.registerUser = (req, res, next) => {
         email,
         password,
       })
-        .then((user) => res.send(user.toJSON()))
+        .then((user) => res.send({
+          name: user.name,
+          email: user.email,
+          _id: user._id,
+        }))
         .catch((err) => {
           if (err.code === 11000) {
             return next(new ConflictError('Пользователь с таким email уже существует'));

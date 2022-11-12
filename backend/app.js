@@ -33,14 +33,13 @@ app.use('/', routerUser);
 app.use('/', routerMovie);
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Сервер не найден'));
-  next();
 });
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
 function connect() {
-  mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://localhost:27017/moviedb', {
+  mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : 'mongodb://localhost:27017/moviesdb', {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   });

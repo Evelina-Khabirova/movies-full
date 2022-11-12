@@ -1,45 +1,21 @@
 const Movie = require('../models/movie');
 const ServerError = require('../error/ServerError');
 const NotFoundError = require('../error/NotFoundError');
+const ValidationError = require('../error/ValidationError');
 const ForbiddenError = require('../error/ForbiddenError');
 
-module.exports.getAllMovie = (req, res, next) => {
-  Movie.find({})
-    .then((movie) => res.send({ data: movie }))
+module.exports.getMovie = (req, res, next) => {
+  Movie.find({ owner: req.user._id})
+    .then((movie) => {
+      res.send({ data: movie });
+    })
     .catch(() => {
       next(new ServerError('Ошибка на сервере'));
     });
 };
 
 module.exports.createMovie = (req, res, next) => {
-  const {
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
-  } = req.body;
-  const owner = req.user._id;
-  Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    owner,
-    movieId,
-    nameRU,
-    nameEN,
-  })
+  Movie.create({ ...req.body, owner: req.user._id })
     .then((movie) => res.send({ data: movie }))
     .catch(() => {
       next(new ServerError('Ошибка на сервере'));
@@ -58,7 +34,7 @@ module.exports.deleteMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {
-        return next(new NotFoundError('Получен неверный id'));
+        return next(new ValidationError('Получен неверный id'));
       }
       return next(new ServerError('Ошибка на сервере'));
     });
