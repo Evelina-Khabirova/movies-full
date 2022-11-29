@@ -1,0 +1,31 @@
+.about-me__photo {
+  margin: 66px 0 0 auto;
+  grid-column-start: -1;
+  grid-column-end: -2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  width: 270px;
+  height: 327px;
+}
+
+@media screen and (max-width: 770px) {
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__photo {
+    margin-top: 60px;
+    width: 292px;
+    height: 352px;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .about-me__photo {
+    width: 273px;
+  }
+}

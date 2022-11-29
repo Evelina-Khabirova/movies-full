@@ -1,0 +1,33 @@
+.techs__box {
+  margin: 121px auto 0;
+  padding: 0;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .techs__box {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .techs__box {
+    margin-top: 83px;
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .techs__box {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 90px);
+    grid-template-columns: repeat(auto-fit, 1fr);
+    row-gap: 10px;
+    column-gap: 10px;
+    justify-content: center;
+  }
+}

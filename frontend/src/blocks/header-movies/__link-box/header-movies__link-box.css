@@ -1,0 +1,10 @@
+.header-movies__link-box {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+  .header-movies__link-box {
+    display: none;
+  }
+}

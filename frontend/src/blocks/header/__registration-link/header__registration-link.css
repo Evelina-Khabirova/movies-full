@@ -1,0 +1,22 @@
+.header__registration-link {
+  margin: 0 30px 0 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header__registration-link:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 500px) {
+  .header__registration-link {
+    margin-right: 14px;
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,22 @@
+.portfolio__link-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px 0 0;
+  padding: 0;
+  height: 69px;
+  border-bottom: 1px solid #E8E8E8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.portfolio__link-box:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 600px) {
+  .portfolio__link-box {
+    margin-top: 40px;
+    height: 47px;
+  }
+}

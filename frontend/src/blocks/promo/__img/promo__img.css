@@ -1,0 +1,22 @@
+.promo__img {
+  margin: 100px 0 0;
+  padding: 0;
+  width: 722px;
+  height: 244px;
+  align-self: flex-end;
+}
+
+@media screen and (max-width: 900px) {
+  .promo__img {
+    width: 680px;
+    height: 230px;
+    align-self: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .promo__img {
+    margin-top: 60px;
+    width: 320px;
+  }
+}

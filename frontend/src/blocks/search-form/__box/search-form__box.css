@@ -1,0 +1,18 @@
+.search-form__box {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 770px) {
+  .search-form__box {
+    flex-direction: row-reverse;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-form__box {
+    margin-right: auto;
+    justify-content: center;
+  }
+}

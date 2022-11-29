@@ -1,0 +1,22 @@
+.profile__exit {
+  margin: 16px auto 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #FF4062;
+  cursor: pointer;
+}
+
+.profile__exit:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 600px) {
+  .profile__exit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

@@ -1,0 +1,18 @@
+.footer__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #A0A0A0;
+  height: 36px;
+  border-bottom: 1px solid #E8E8E8;
+  margin: 0px;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__title {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

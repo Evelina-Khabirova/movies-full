@@ -1,0 +1,14 @@
+.login__input {
+  border: 0;
+  border-bottom: 1px solid #E8E8E8;
+  width: 396px;
+  height: 27px;
+  margin: 5px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .login__input {
+    width: 260px;
+  }
+}

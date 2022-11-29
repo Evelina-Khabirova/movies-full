@@ -1,0 +1,23 @@
+.about-me__specialization {
+  margin: 18px 0 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+@media screen and (max-width: 770px) {
+  .about-me__specialization {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__specialization {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}

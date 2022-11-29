@@ -1,0 +1,15 @@
+.navtab__list {
+  list-style-type: none;
+  margin-top: 32px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.navtab__list:first-child {
+  margin-top: 0;
+}
+
+.navtab__list:hover {
+  text-decoration: underline;
+  opacity: .8;
+}

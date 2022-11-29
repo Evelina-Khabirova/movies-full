@@ -1,0 +1,12 @@
+.about-me__grid-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, minmax(min-content, max-content));
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__grid-box {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, minmax(min-content, max-content));
+  }
+}

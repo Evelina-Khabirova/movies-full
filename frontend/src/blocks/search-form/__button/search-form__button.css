@@ -1,0 +1,27 @@
+.search-form__button {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0 0 13px;
+  background: #000000;
+  border-radius: 48px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.search-form__button:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 600px) {
+  .search-form__button {
+    font-size: 11px;
+    line-height: 18px;
+    margin-bottom: 9px;
+  }
+}
