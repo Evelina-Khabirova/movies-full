@@ -1,16 +1,10 @@
 .techs__box {
   margin: 121px auto 0;
   padding: 0;
-  width: 70%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-@media screen and (max-width: 900px) {
-  .techs__box {
-    width: 80%;
-  }
 }
 
 @media screen and (max-width: 770px) {

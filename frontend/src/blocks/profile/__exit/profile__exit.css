@@ -8,6 +8,8 @@
   text-align: center;
   color: #FF4062;
   cursor: pointer;
+  border: 0px;
+  background-color: #fff;
 }
 
 .profile__exit:hover {

@@ -88,6 +88,9 @@
 @import url(./blocks/movies-card/__title/movies-card__title.css);
 @import url(./blocks/movies-card/__icon/movies-card__icon.css);
 @import url(./blocks/movies-card/__icon/_like/movies-card__icon_like.css);
+@import url(./blocks/movies-card/__icon/_save/movies-card__icon-save.css);
+@import url(./blocks/movies-card/__icon/_delete/movies-card__icon_delete.css);
+@import url(./blocks/movies-card/__icon/_hidden/movies-card__icon_hidden.css);
 @import url(./blocks/movies-card/__duration/movies-card__duration.css);
 
 @import url(./blocks/more-movies/more-movies.css);

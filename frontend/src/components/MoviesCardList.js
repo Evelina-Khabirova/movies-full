@@ -3,7 +3,6 @@ import MoviesCard from './MoviesCard.js';
 import movies from '../utils/movies.js';
 
 function MoviesCardList ({
-
 }) {
   return (
     <ul className='movies-card'>

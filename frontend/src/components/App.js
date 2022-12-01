@@ -98,11 +98,12 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem('token');
+    navigate('/', {replace: true});
   }
 
   return (
     <CurrentUserContext.Provider value={[openNavTab, setOpenNavTab]}>
-      <div className='page'>
+      <>
         <Routes>
           <Route path="/" exact element={
             <Main />
@@ -118,7 +119,9 @@ function App() {
           >
           </Route>
           <Route path='/profile' element={
-            <Profile />
+            <Profile
+              signOut={handleSignOut}
+            />
           }>
           </Route>
           <Route path='/signin' element={
@@ -141,7 +144,7 @@ function App() {
         <NavTab
           isOpen={openNavTab}
         />
-      </div>
+      </>
     </CurrentUserContext.Provider>
   );
 }

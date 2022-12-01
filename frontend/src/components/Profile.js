@@ -2,7 +2,7 @@ import React from 'react';
 import HeaderMovies from './HeaderMovies';
 
 function Profile ({
-
+  signOut
 }) {
   return(
     <div className='profile'>
@@ -25,7 +25,10 @@ function Profile ({
           >Редактировать
           </button>
         </form>
-        <p className='profile__exit'>Выйти из аккаунта</p>
+        <button 
+          className='profile__exit'
+          onClick={signOut}
+        >Выйти из аккаунта</button>
       </div>
     </div>
   );
