@@ -1,0 +1,21 @@
+.header-movies {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 18px 70px;
+}
+
+@media screen and (max-width: 770px) {
+  .header-movies {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header-movies {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}

@@ -1,0 +1,7 @@
+.movies-card__icon_save {
+  background-image: url("../../../../images/save1.svg");
+  background-repeat: no-repeat;
+  background-color: white;
+  width: 24px;
+  height: 24px;
+}

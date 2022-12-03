@@ -1,0 +1,24 @@
+.movies-card {
+  padding: 70px 70px 10px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-auto-flow: 0;
+  column-gap: 20px;
+  row-gap: 38px;
+}
+
+@media screen and (max-width: 770px) {
+  .movies-card {
+    padding: 70px 30px 10px;
+    column-gap: 30px;
+    row-gap: 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movies-card {
+    padding: 40px 10px 10px;
+  }
+}

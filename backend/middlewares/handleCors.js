@@ -1,4 +1,4 @@
-const allowedCors = ['https://praktikum.tk', 'http://praktikum.th', 'http://localhost:5555', 'http://api.kh-evelina.movies.nomoredomains.icu', 'https://api.kh-evelina.movies.nomoredomains.icu', 'http://movies.kh-evelina.nomoredomains.icu', 'https://movies.kh-evelina.nomoredomains.icu', 'http://127.0.0.1:5555'];
+const allowedCors = ['https://praktikum.tk', 'http://praktikum.th', 'http://localhost:5555', 'http://localhost:3333', 'http://api.kh-evelina.movies.nomoredomains.icu', 'https://api.kh-evelina.movies.nomoredomains.icu', 'http://movies.kh-evelina.nomoredomains.icu', 'https://movies.kh-evelina.nomoredomains.icu', 'http://127.0.0.1:5555','http://127.0.0.1:3333'];
 module.exports.handleCors = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;

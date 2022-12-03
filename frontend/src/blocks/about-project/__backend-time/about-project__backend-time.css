@@ -1,0 +1,23 @@
+.about-project__backend-time {
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 9px 3px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .about-project__backend-time {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

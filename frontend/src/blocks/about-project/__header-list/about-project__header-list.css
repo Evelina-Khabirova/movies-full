@@ -1,0 +1,16 @@
+.about-project__header-list {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .about-project__header-list {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

@@ -1,0 +1,17 @@
+.search-form {
+  padding: 70px 70px 47px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 770px) {
+  .search-form {
+    padding: 80px 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-form {
+    padding: 90px 14px;
+  }
+}

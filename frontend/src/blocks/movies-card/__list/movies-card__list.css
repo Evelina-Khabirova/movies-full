@@ -1,0 +1,9 @@
+.movies-card__list {
+  position: relative;
+  max-width: 100%;
+  display: grid;
+  grid-template-areas: 
+  "image image"
+  "title icon"
+  "duration duration";
+}

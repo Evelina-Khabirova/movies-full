@@ -1,0 +1,14 @@
+.movies-card__icon {
+  margin: 0;
+  padding: 0;
+  grid-area: icon;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.movies-card__icon:hover {
+  opacity: .8;
+}

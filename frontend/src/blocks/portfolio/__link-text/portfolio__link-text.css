@@ -1,0 +1,21 @@
+.portfolio__link-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  color: #000000;
+}
+
+@media screen and (max-width: 770px) {
+  .portfolio__link-text {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .portfolio__link-text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

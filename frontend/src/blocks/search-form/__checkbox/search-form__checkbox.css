@@ -1,0 +1,27 @@
+.search-form__checkbox {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 36px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 25%/50%;
+  vertical-align: top;
+  background: #eee;
+  transition: .2s;
+  margin-left: 0;
+}
+
+.search-form__checkbox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  transition: .15s;
+}

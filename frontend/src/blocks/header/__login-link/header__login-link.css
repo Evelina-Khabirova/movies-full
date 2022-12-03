@@ -1,0 +1,26 @@
+.header__login-link {
+  padding: 7px 20px;
+  margin: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #FFF;
+  text-decoration: none;
+  background-color: #000;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.header__login-link:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 500px) {
+  .header__login-link {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+}
