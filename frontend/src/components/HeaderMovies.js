@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import headerLogo from '../images/logo.svg';
 import accountImg from '../images/icon__COLOR_icon-account.svg';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function HeaderMovies() {
-  const [, setOpenNavTab] = React.useContext(CurrentUserContext);
+function HeaderMovies({
+  setOpenMenu
+}) {
   return (
     <div className='header-movies'>
       <Link to={'/'}><img src={headerLogo} alt="Логотип" className="header-movies__logo" /></Link>
@@ -21,7 +21,7 @@ function HeaderMovies() {
         className='header-movies__burger-menu'
         type='button'
         aria-label='Меню'
-        onClick={setOpenNavTab}
+        onClick={setOpenMenu}
       ></button>
     </div>
   );

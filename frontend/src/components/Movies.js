@@ -7,17 +7,55 @@ import Footer from './Footer.js';
 import Preloader from './Preloader.js';
 
 
-function Movies() {
-  const [isLoading, setLoading] = React.useState(false);
+function Movies({
+  isLoading,
+  errorLoading,
+  handleClickMoreLoad,
+  requestSaveMovie,
+  requestDeleteMovie,
+  setOpenMenu,
+  movies,
+  getRenderMoviesToDisplay,
+  sliceMovie,
+  checked,
+  item,
+  handleClickCheckbox,
+  setFilterMovies,
+  setOnSubmit,
+  onSubmit,
+  filterMovies
+}) {
+
   return(
     <section className='movies'>
-      <HeaderMovies />
+      <HeaderMovies
+        setOpenMenu={setOpenMenu}
+      />
       <div>
-        {isLoading ? <Preloader /> : <div>
-          <SearchForm />
-          <MoviesCardList />
-          <MoreMovies />
-          </div>
+        {isLoading ? <Preloader /> : <>
+          <SearchForm
+            movies={movies}
+            isLoading={isLoading}
+            handleClickCheckbox={handleClickCheckbox}
+            setFilterMovies={setFilterMovies}
+            setOnSubmit={setOnSubmit}
+          />
+          <MoviesCardList
+            movies={movies}
+            requestSaveMovie={requestSaveMovie}
+            requestDeleteMovie={requestDeleteMovie}
+            errorLoading={errorLoading}
+            getRenderMoviesToDisplay={getRenderMoviesToDisplay}
+            sliceMovie={sliceMovie}
+            checked={checked}
+            item={item}
+            onSubmit={onSubmit}
+            filterMovies={filterMovies}
+          />
+          <MoreMovies
+            handleClickMoreLoad={handleClickMoreLoad}
+          />
+          </>
         }
       </div>
       <Footer />
