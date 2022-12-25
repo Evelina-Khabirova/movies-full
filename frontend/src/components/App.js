@@ -25,7 +25,7 @@ function App() {
 
   const token = handleToken();
   
-  const apiMain = new MainApi('api.kh-evelina.movies.nomoredomains.icu', token);
+  const apiMain = new MainApi('https://api.kh-evelina.movies.nomoredomains.icu', token);
   const apiMovies = new MoviesApi('https://api.nomoreparties.co/beatfilm-movies');
   const [currentUser, setCurrentUser] = React.useState({_id: '', name: '', email: ''});
   const [loggedIn, setLoggedIn] = React.useState(localStorage.getItem('loggedIn'));
