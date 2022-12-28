@@ -6,10 +6,19 @@ import accountImg from '../images/icon__COLOR_icon-account.svg';
 function HeaderMovies({
   setOpenMenu
 }) {
+  const {pathname} = useLocation();
+  let styleMain ='';
+  let styleBox = '';
+  switch(pathname) {
+    case '/': styleMain='header'; styleBox='header__link-box'; break;
+    default: styleMain='header-movies'; styleBox='header-movies__link-box'; break;
+  }
+
+
   return (
-    <div className='header-movies'>
-      <Link to={'/'}><img src={headerLogo} alt="Логотип" className="header-movies__logo" /></Link>
-      <div className='header-movies__link-box'>
+    <div className={`${styleMain}`}>
+      <Link to={'/'}><img src={headerLogo} alt="Логотип" className='header-movies__logo' /></Link>
+      <div className={`${styleBox}`}>
         <Link to={'/movies'} className="header-movies__films">Фильмы</Link>
         <Link to={'/saved-movies'} className="header-movies__save-films">Сохранённые фильмы</Link>
         <Link to={'/profile'} className="header-movies__account-link-box">

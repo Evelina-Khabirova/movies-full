@@ -261,6 +261,7 @@ function App() {
           <Route path="/" exact element={
             <Main
               isLoading={isLoading}
+              loggedIn={loggedIn}
             />
           }>
           </Route>

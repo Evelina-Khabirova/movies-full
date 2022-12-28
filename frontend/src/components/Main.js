@@ -7,16 +7,19 @@ import AboutMe from './AboutMe.js';
 import Portfolio from './Portfolio.js';
 import Footer from './Footer.js';
 import Preloader from './Preloader.js';
+import HeaderMovies from './HeaderMovies.js';
 
 
 function Main({
-  isLoading
+  isLoading,
+  loggedIn
 }) {
   return(
     <section className='main'>
       {isLoading ? <Preloader /> : 
-        <>
-          <Header />
+        <>{
+          loggedIn ? <HeaderMovies /> : <Header />
+          }
           <Promo />
           <AboutProject />
           <Techs />
