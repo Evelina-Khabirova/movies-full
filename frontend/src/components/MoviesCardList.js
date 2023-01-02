@@ -1,25 +1,36 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import MoviesCard from './MoviesCard.js';
 
 function MoviesCardList ({
   movies,
+  isListSavedMovies,
   requestSaveMovie,
   requestDeleteMovie,
-  isListSavedMovies,
   getRenderMoviesToDisplay,
   sliceMovie,
   checked,
   item,
-  onSubmit,
-  filterMovies
+  likes,
+  setLikes,
+  arrSavedLikes
 }) {
+  const searchStory = localStorage.getItem('SearchValue');
+  const [searchMovies, setSearchMovies] = useState([]);
+
+  React.useEffect(() => {
+    if (searchStory) {
+      setSearchMovies(movies.filter(movie => {
+        return movie.nameRU.toLowerCase().includes(searchStory.toLowerCase());
+      }));
+    }
+  }, [searchStory]);
 
   function checkArray() {
-    if (checked === true) {
+    if (checked) {
       return item.slice(0, sliceMovie * getRenderMoviesToDisplay());
     }
-    else if (onSubmit === true) {
-      return filterMovies.slice(0, sliceMovie * getRenderMoviesToDisplay());
+    else if (searchStory) {
+      return searchMovies.slice(0, sliceMovie * getRenderMoviesToDisplay());
     }
     else {
       return movies.slice(0, sliceMovie * getRenderMoviesToDisplay());
@@ -32,8 +43,11 @@ function MoviesCardList ({
         checkArray().map((movie, index) => (
           <MoviesCard
             requestSaveMovie={requestSaveMovie}
-            isListSavedMovies={isListSavedMovies}
             requestDeleteMovie={requestDeleteMovie}
+            isListSavedMovies={isListSavedMovies}
+            likes={likes}
+            setLikes={setLikes}
+            arrSavedLikes={arrSavedLikes}
             movie={movie}
             key={index}
           />

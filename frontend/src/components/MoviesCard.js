@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 
 function MoviesCard({
@@ -6,14 +6,18 @@ function MoviesCard({
   requestSaveMovie,
   requestDeleteMovie,
   isListSavedMovies,
+  likes,
+  setLikes,
+  arrSavedLikes
 }) {
   const [isSaved, setIsSaved] = React.useState(false);
   const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
-  
+
   function handleSavedMovie(e) {
     if(e.target === e.currentTarget) {
       e.preventDefault();
       requestSaveMovie(movie);
+      setLikes([movie.id, ...likes]);
       setIsSaved(true);
     }
   }
@@ -29,6 +33,8 @@ function MoviesCard({
     if(e.target === e.currentTarget) {
       e.preventDefault();
       requestDeleteMovie(movie);
+      const arr = likes.filter(elem => elem !== movie.id);
+      setLikes(arr);
       setIsSaved(false);
     }
   }
@@ -40,6 +46,16 @@ function MoviesCard({
     case '/movies': deleteStyle='movies-card__icon_hidden'; break;
     case '/saved-movies': likeStyle='movies-card__icon_hidden'; break;
   }
+
+  React.useEffect(() => {
+    if(pathname === '/movies') {
+      arrSavedLikes.forEach(elem => {
+        if (elem === movie.id) {
+          setIsSaved(true);
+        }
+      });
+    }
+  }, []);
 
   return(
     <li className='movies-card__list'>

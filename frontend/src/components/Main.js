@@ -12,13 +12,14 @@ import HeaderMovies from './HeaderMovies.js';
 
 function Main({
   isLoading,
-  loggedIn
+  loggedIn,
+  setOpenMenu
 }) {
   return(
     <section className='main'>
       {isLoading ? <Preloader /> : 
         <>{
-          loggedIn ? <HeaderMovies /> : <Header />
+          loggedIn ? <HeaderMovies setOpenMenu={setOpenMenu} /> : <Header />
           }
           <Promo />
           <AboutProject />

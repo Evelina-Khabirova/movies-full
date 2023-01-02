@@ -19,9 +19,7 @@ function SavedMovies({
   item,
   handleClickCheckbox,
   setFilterMovies,
-  setOnSubmit,
-  onSubmit,
-  filterMovies
+  disabledMore
 }) {
   const isListSavedMovies = true;
 
@@ -38,7 +36,6 @@ function SavedMovies({
               isLoading={isLoading}
               handleClickCheckbox={handleClickCheckbox}
               setFilterMovies={setFilterMovies}
-              setOnSubmit={setOnSubmit}
             />
             <MoviesCardList
               movies={savedMovies}
@@ -49,11 +46,10 @@ function SavedMovies({
               sliceMovie={sliceMovie}
               checked={checked}
               item={item}
-              onSubmit={onSubmit}
-              filterMovies={filterMovies}
             />
             <MoreMovies
               handleClickMoreLoad={handleClickMoreLoad}
+              disabledMore={disabledMore}
             />
             <Footer />
           </>

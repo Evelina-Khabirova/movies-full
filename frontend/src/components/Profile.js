@@ -13,6 +13,7 @@ function Profile ({
   const [values, setValues] = useState({profile_name: '', profile_email: ''});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
+  const button = document.querySelector('.profile__button');
 
   React.useEffect(() => {
     if(currentUser) {
@@ -33,6 +34,8 @@ function Profile ({
     }));
     setErrors({...errors, [target.name]: target.validationMessage});
     setIsValid(target.closest('form').checkValidity());
+    button.classList.remove('profile__button_disabled');
+    button.disabled = false;
   }
 
   function handleSubmit(e) {
@@ -41,6 +44,8 @@ function Profile ({
       name: values.profile_name,
       email: values.profile_email,
     });
+    button.classList.add('profile__button_disabled');
+    button.disabled = true;
   }
 
   return(
@@ -53,6 +58,7 @@ function Profile ({
           isLoading ? <Preloader /> :
           <div className='profile__main'>
             <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
+            <p className='profile__notification'>Вы успешно изменили данные!</p>
             <form 
               className='profile__form'
               onSubmit={handleSubmit}
@@ -70,7 +76,7 @@ function Profile ({
                 disabled={isLoading}
               />
               <span className='profile__error' id='profile_name_type_error'>
-                {`${errors.profile_name}`}
+                {`${errors.profile_name===undefined ? '' : errors.profile_name}`}
               </span>
               <input
                 type='text'
@@ -84,12 +90,12 @@ function Profile ({
                 disabled={isLoading}
               />
               <span className='profile__error' id='profile_email_type_error'>
-                {`${errors.profile_email}`}
+                {`${errors.profile_name===undefined ? '' : errors.profile_name}`}
               </span>
               <button
-                className='profile__button'
+                className='profile__button profile__button_disabled'
                 type='submit'
-                disabled={isLoading}
+                disabled
               >Редактировать
               </button>
             </form>

@@ -1,10 +1,11 @@
 import React from 'react';
 
 function MoreMovies({
-  handleClickMoreLoad
+  handleClickMoreLoad,
+  disabledMore
 }) {
   return(
-    <div className='more-movies'>
+    <div className={`more-movies ${disabledMore ? 'more-movies_disabled' : ''}`}>
       <button
         type='button'
         className='more-movies__button'

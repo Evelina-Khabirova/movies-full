@@ -55,7 +55,7 @@ function Login ({
             maxLength='30'
           />
           <span className='login__error' id='login_email_type_error'>
-            {`${errors.login_email}`}
+            {`${errors.login_email===undefined ? '' : errors.login_email}`}
           </span>
           <p className='login__text'>Пароль</p>
           <input
@@ -71,7 +71,7 @@ function Login ({
             maxLength='30'
           />
           <span className='login__error' id='login_password_type_error'>
-            {`${errors.login_password}`}
+            {`${errors.login_email===undefined ? '' : errors.login_email}`}
           </span>
           <button
             className='login__button'

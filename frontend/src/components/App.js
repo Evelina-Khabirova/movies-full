@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Main from './Main.js';
 import Movies from './Movies.js';
@@ -42,11 +42,15 @@ function App() {
   const [sliceMovie, setSliceMovie] = React.useState(1);
   const [checked, setChecked] = React.useState(false);
   const [item, setItem] = React.useState([]);
-  const [onSubmit, setOnSubmit] = React.useState(false);
   const [filterMovies, setFilterMovies] = React.useState([]);
+  const [disabledMore, setDisabledMore] = React.useState(false);
+  const [likes, setLikes] = React.useState([]);
+  const {pathname} = useLocation();
+  const [arrSavedLikes, setArrSavedLikes] = React.useState([]);
 
   function handleClickCheckbox(mov) {
     setChecked(!checked);
+    localStorage.setItem('Checked', !checked);
     const newItem = mov.filter((newVal) => {
       if (newVal.duration <= 40) {
         return newVal;
@@ -79,30 +83,21 @@ function App() {
   }
 
   React.useEffect(() => {
-    if (loggedIn) {
-      apiMain.getUser()
-      .then((res) => {
-        setLoggedIn(true);
-        setCurrentUser(res);
-        navigate('/movies', {replace: true});
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err === 'Отсутствует токен' || err === 'Пользователь не авторизирован') {
-          navigate('/', {replace: true});
-          localStorage.clear();
-          setSavedMovies([]);
-          setLoggedIn(false);
-        }
-      })
-    }
-  }, [loggedIn]);
-
-  React.useEffect(() => {
     if(loggedIn) {
       apiMovies.getMovies()
       .then((res) => {
         setMovieCard(res);
+        if(localStorage.getItem('Checked') === 'true') {
+          setChecked(true);
+          const newItem = res.filter((newVal) => {
+            if (newVal.duration <= 40) {
+              return newVal;
+            }
+          });
+          setItem(newItem);
+          const checkboxButton = document.getElementById('form-checkbox');
+          checkboxButton.checked = true;
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -118,8 +113,30 @@ function App() {
       apiMain.getSavedMovies()
       .then((res) => {
         setSavedMovies(res.data);
+        setArrSavedLikes(res.data.map(elem => {return elem.movieId}));
+        setDisabledMore(false);
       })
       .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      apiMain.getUser()
+      .then((res) => {
+        setLoggedIn(true);
+        setCurrentUser(res);
+        navigate(`${pathname}`, {replace: true});
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err === 'Отсутствует токен' || err === 'Пользователь не авторизирован') {
+          navigate('/', {replace: true});
+          localStorage.clear();
+          setSavedMovies([]);
+          setLoggedIn(false);
+        }
+      })
     }
   }, [loggedIn]);
 
@@ -189,7 +206,20 @@ function App() {
   }
 
   function requestDeleteMovie(movie) {
-    apiMain.deleteMovie(movie._id)
+    let id;
+    function findId () {
+      const arr = savedMovies.find(elem => {
+        if (elem.movieId === movie.id) {
+          return elem._id;
+        }
+      });
+      id = arr._id;
+    }
+    switch(pathname) {
+      case '/movies':  findId(); break;
+      case '/saved-movies': id = movie._id; break;
+    }
+    apiMain.deleteMovie(id)
     .then((res) => {
       setSavedMovies((state) => state.filter((s) => s._id !== res._id));
     })
@@ -203,7 +233,7 @@ function App() {
     return apiMain.registerUser({name, email, password})
       .then(() => {
         setRegistr(true);
-        navigate('/signin', {replace: true});
+        handleLoginUser({email, password});
       })
       .catch((err) => {
         setRegistr(false);
@@ -234,21 +264,24 @@ function App() {
   }
 
   function handleEditUser({name, email}) {
-    setIsLoading(true);
+    const notification = document.querySelector('.profile__notification');
     apiMain.editUser(name, email)
     .then((res) => {
-      console.log(res);
       setCurrentUser({name: res.name, email: res.email});
     })
     .catch((err) => {
       console.log(err.message);
+      notification.classList.remove('profile__notification_active');
     })
     .finally(() => {
       setIsLoading(false);
     });
+    notification.classList.add('profile__notification_active');
   }
 
   function handleSignOut() {
+    localStorage.removeItem('Checked');
+    localStorage.removeItem('SearchValue');
     localStorage.removeItem('token');
     setLoggedIn(false);
     navigate('/', {replace: true});
@@ -262,6 +295,7 @@ function App() {
             <Main
               isLoading={isLoading}
               loggedIn={loggedIn}
+              setOpenMenu={setOpenMenu}
             />
           }>
           </Route>
@@ -279,12 +313,13 @@ function App() {
               handleClickMoreLoad={handleClickMoreLoad}
               sliceMovie={sliceMovie}
               checked={checked}
+              setChecked={setChecked}
               item={item}
               handleClickCheckbox={handleClickCheckbox}
               setFilterMovies={setFilterMovies}
-              setOnSubmit={setOnSubmit}
-              onSubmit={onSubmit}
-              filterMovies={filterMovies}
+              likes={likes}
+              setLikes={setLikes}
+              arrSavedLikes={arrSavedLikes}
             />
           }>
           </Route>
@@ -306,9 +341,7 @@ function App() {
               item={item}
               handleClickCheckbox={handleClickCheckbox}
               setFilterMovies={setFilterMovies}
-              setOnSubmit={setOnSubmit}
-              onSubmit={onSubmit}
-              filterMovies={filterMovies}
+              disabledMore={disabledMore}
             />
           }
           >

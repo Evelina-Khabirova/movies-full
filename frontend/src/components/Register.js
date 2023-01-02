@@ -56,7 +56,7 @@ function Register({
               maxLength='30'
             />
             <span className='register__error' id='register_name_type_error'>
-              {`${errors.register_name}`}
+              {`${errors.register_name===undefined ? '' : errors.register_name}`}
             </span>
             <p className='register__text'>E-mail</p>
             <input
@@ -72,7 +72,7 @@ function Register({
               maxLength='30'
             />
             <span className='register__error' id='register_email_type_error'>
-              {`${errors.register_email}`}
+              {`${errors.register_name===undefined ? '' : errors.register_name}`}
             </span>
             <p className='register__text'>Пароль</p>
             <input
@@ -88,7 +88,7 @@ function Register({
               maxLength='30'
             />
             <span className='register__error' id='register_password_type_error'>
-              {`${errors.register_password}`}
+              {`${errors.register_name===undefined ? '' : errors.register_name}`}
             </span>
             <button
               className='register__button'

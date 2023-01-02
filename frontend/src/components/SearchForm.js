@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 function SearchForm({
   movies,
   isLoading,
   handleClickCheckbox,
   setFilterMovies,
-  setOnSubmit
 }) {
   const [value, setValue] = useState('');
+  const searchStory = localStorage.getItem('SearchValue');
+
+  React.useEffect(() => {
+    if (searchStory) {
+      setValue(searchStory);
+    }
+  }, [searchStory]);
 
   function handleCheck() {
     handleClickCheckbox(movies);
@@ -23,8 +29,8 @@ function SearchForm({
 
   function handleSubmit(e) {
     e.preventDefault();
+    localStorage.setItem('SearchValue', value);
     setFilterMovies(searchMovies);
-    setOnSubmit(true);
   }
 
   return (
@@ -39,6 +45,7 @@ function SearchForm({
           placeholder='Фильм'
           className='search-form__search-input'
           name='search'
+          value={value || ''}
           onChange={changeValue}
         />
         <button

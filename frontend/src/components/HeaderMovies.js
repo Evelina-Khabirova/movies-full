@@ -10,15 +10,15 @@ function HeaderMovies({
   let styleMain ='';
   let styleBox = '';
   switch(pathname) {
-    case '/': styleMain='header'; styleBox='header__link-box'; break;
-    default: styleMain='header-movies'; styleBox='header-movies__link-box'; break;
+    case '/': styleMain='header'; styleBox='header-movies__burger-menu-main'; break;
+    default: styleMain='header-movies'; styleBox='header-movies__burger-menu-movie'; break;
   }
 
 
   return (
     <div className={`${styleMain}`}>
       <Link to={'/'}><img src={headerLogo} alt="Логотип" className='header-movies__logo' /></Link>
-      <div className={`${styleBox}`}>
+      <div className={`header-movies__link-box`}>
         <Link to={'/movies'} className="header-movies__films">Фильмы</Link>
         <Link to={'/saved-movies'} className="header-movies__save-films">Сохранённые фильмы</Link>
         <Link to={'/profile'} className="header-movies__account-link-box">
@@ -27,7 +27,7 @@ function HeaderMovies({
         </Link>
       </div>
       <button
-        className='header-movies__burger-menu'
+        className={`header-movies__burger-menu ${styleBox}`}
         type='button'
         aria-label='Меню'
         onClick={setOpenMenu}

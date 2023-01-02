@@ -18,12 +18,13 @@ function Movies({
   getRenderMoviesToDisplay,
   sliceMovie,
   checked,
+  setChecked,
   item,
   handleClickCheckbox,
   setFilterMovies,
-  setOnSubmit,
-  onSubmit,
-  filterMovies
+  likes,
+  setLikes,
+  arrSavedLikes,
 }) {
 
   return(
@@ -38,7 +39,6 @@ function Movies({
             isLoading={isLoading}
             handleClickCheckbox={handleClickCheckbox}
             setFilterMovies={setFilterMovies}
-            setOnSubmit={setOnSubmit}
           />
           <MoviesCardList
             movies={movies}
@@ -48,9 +48,11 @@ function Movies({
             getRenderMoviesToDisplay={getRenderMoviesToDisplay}
             sliceMovie={sliceMovie}
             checked={checked}
+            setChecked={setChecked}
             item={item}
-            onSubmit={onSubmit}
-            filterMovies={filterMovies}
+            likes={likes}
+            setLikes={setLikes}
+            arrSavedLikes={arrSavedLikes}
           />
           <MoreMovies
             handleClickMoreLoad={handleClickMoreLoad}
