@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import HeaderMovies from './HeaderMovies.js';
 import SearchForm from './SearchForm.js';
 import MoviesCardList from './MoviesCardList.js';
@@ -19,7 +19,9 @@ function SavedMovies({
   item,
   handleClickCheckbox,
   setFilterMovies,
-  disabledMore
+  setDisplayMovies,
+  displayMovies,
+  isDisabledMore
 }) {
   const isListSavedMovies = true;
 
@@ -46,10 +48,12 @@ function SavedMovies({
               sliceMovie={sliceMovie}
               checked={checked}
               item={item}
+              setDisplayMovies={setDisplayMovies}
             />
             <MoreMovies
               handleClickMoreLoad={handleClickMoreLoad}
-              disabledMore={disabledMore}
+              isDisabledMore={isDisabledMore}
+              movies={displayMovies}
             />
             <Footer />
           </>

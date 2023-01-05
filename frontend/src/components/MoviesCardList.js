@@ -12,7 +12,8 @@ function MoviesCardList ({
   item,
   likes,
   setLikes,
-  arrSavedLikes
+  arrSavedLikes,
+  setDisplayMovies
 }) {
   const searchStory = localStorage.getItem('SearchValue');
   const [searchMovies, setSearchMovies] = useState([]);
@@ -24,6 +25,18 @@ function MoviesCardList ({
       }));
     }
   }, [searchStory]);
+
+  React.useEffect(() => {
+    if (checked) {
+      setDisplayMovies(item.length);
+    }
+    else if (searchStory) {
+      setDisplayMovies(searchMovies.length);
+    }
+    else {
+      setDisplayMovies(movies.length);
+    }
+  });
 
   function checkArray() {
     if (checked) {

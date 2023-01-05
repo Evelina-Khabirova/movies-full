@@ -43,10 +43,10 @@ function App() {
   const [checked, setChecked] = React.useState(false);
   const [item, setItem] = React.useState([]);
   const [filterMovies, setFilterMovies] = React.useState([]);
-  const [disabledMore, setDisabledMore] = React.useState(false);
   const [likes, setLikes] = React.useState([]);
   const {pathname} = useLocation();
   const [arrSavedLikes, setArrSavedLikes] = React.useState([]);
+  const [displayMovies, setDisplayMovies] = React.useState(0);
 
   function handleClickCheckbox(mov) {
     setChecked(!checked);
@@ -74,11 +74,23 @@ function App() {
     if (windowWidth > 768) {
       return 3;
     }
-    else if (windowWidth > 480) {
+    else if (windowWidth > 480 && windowWidth <= 768) {
       return 2;
     }
     else {
       return 5;
+    }
+  }
+
+  function isDisabledMore(how) {
+    if (windowWidth > 768) {
+      return sliceMovie * 3 >= how;
+    }
+    else if (windowWidth > 320 && windowWidth <= 768) {
+      return sliceMovie * 2 >= how;
+    }
+    else {
+      return sliceMovie * 5 >= how;
     }
   }
 
@@ -114,7 +126,6 @@ function App() {
       .then((res) => {
         setSavedMovies(res.data);
         setArrSavedLikes(res.data.map(elem => {return elem.movieId}));
-        setDisabledMore(false);
       })
       .catch((err) => console.log(err));
     }
@@ -320,6 +331,9 @@ function App() {
               likes={likes}
               setLikes={setLikes}
               arrSavedLikes={arrSavedLikes}
+              setDisplayMovies={setDisplayMovies}
+              displayMovies={displayMovies}
+              isDisabledMore={isDisabledMore}
             />
           }>
           </Route>
@@ -341,7 +355,9 @@ function App() {
               item={item}
               handleClickCheckbox={handleClickCheckbox}
               setFilterMovies={setFilterMovies}
-              disabledMore={disabledMore}
+              setDisplayMovies={setDisplayMovies}
+              displayMovies={displayMovies}
+              isDisabledMore={isDisabledMore}
             />
           }
           >

@@ -2,10 +2,11 @@ import React from 'react';
 
 function MoreMovies({
   handleClickMoreLoad,
-  disabledMore
+  isDisabledMore,
+  movies
 }) {
   return(
-    <div className={`more-movies ${disabledMore ? 'more-movies_disabled' : ''}`}>
+    <div className={`more-movies ${isDisabledMore(movies) ? 'more-movies_disabled' : ''}`}>
       <button
         type='button'
         className='more-movies__button'

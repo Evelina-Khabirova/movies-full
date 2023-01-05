@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import HeaderMovies from './HeaderMovies.js';
 import SearchForm from './SearchForm.js';
 import MoviesCardList from './MoviesCardList.js';
@@ -25,8 +25,10 @@ function Movies({
   likes,
   setLikes,
   arrSavedLikes,
+  setDisplayMovies,
+  displayMovies,
+  isDisabledMore
 }) {
-
   return(
     <section className='movies'>
       <HeaderMovies
@@ -53,9 +55,12 @@ function Movies({
             likes={likes}
             setLikes={setLikes}
             arrSavedLikes={arrSavedLikes}
+            setDisplayMovies={setDisplayMovies}
           />
           <MoreMovies
             handleClickMoreLoad={handleClickMoreLoad}
+            isDisabledMore={isDisabledMore}
+            movies={displayMovies}
           />
           </>
         }
