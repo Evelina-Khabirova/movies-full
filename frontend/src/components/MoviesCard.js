@@ -6,18 +6,23 @@ function MoviesCard({
   requestSaveMovie,
   requestDeleteMovie,
   isListSavedMovies,
-  likes,
-  setLikes,
-  arrSavedLikes
+  arrSavedLikes,
+  setArrSavedLikes
 }) {
   const [isSaved, setIsSaved] = React.useState(false);
   const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
+  const {pathname} = useLocation();
 
   function handleSavedMovie(e) {
     if(e.target === e.currentTarget) {
       e.preventDefault();
       requestSaveMovie(movie);
-      setLikes([movie.id, ...likes]);
+      let id;
+      switch(pathname) {
+        case '/movies': id = movie.id; break;
+        case '/saved-movies': id = movie.movieId; break;
+      }
+      setArrSavedLikes([id, ...arrSavedLikes]);
       setIsSaved(true);
     }
   }
@@ -33,13 +38,17 @@ function MoviesCard({
     if(e.target === e.currentTarget) {
       e.preventDefault();
       requestDeleteMovie(movie);
-      const arr = likes.filter(elem => elem !== movie.id);
-      setLikes(arr);
+      let id;
+      switch(pathname) {
+        case '/movies': id = movie.id; break;
+        case '/saved-movies': id = movie.movieId; break;
+      }
+      const arr = arrSavedLikes.filter(elem => elem !== id);
+      setArrSavedLikes(arr);
       setIsSaved(false);
     }
   }
 
-  const {pathname} = useLocation();
   let likeStyle ='';
   let deleteStyle='';
   switch(pathname) {

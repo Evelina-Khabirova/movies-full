@@ -7,13 +7,11 @@ function MoviesCardList ({
   requestSaveMovie,
   requestDeleteMovie,
   getRenderMoviesToDisplay,
-  sliceMovie,
   checked,
   item,
-  likes,
-  setLikes,
   arrSavedLikes,
-  setDisplayMovies
+  setDisplayMovies,
+  setArrSavedLikes
 }) {
   const searchStory = localStorage.getItem('SearchValue');
   const [searchMovies, setSearchMovies] = useState([]);
@@ -40,13 +38,13 @@ function MoviesCardList ({
 
   function checkArray() {
     if (checked) {
-      return item.slice(0, sliceMovie * getRenderMoviesToDisplay());
+      return item.slice(0, getRenderMoviesToDisplay());
     }
     else if (searchStory) {
-      return searchMovies.slice(0, sliceMovie * getRenderMoviesToDisplay());
+      return searchMovies.slice(0, getRenderMoviesToDisplay());
     }
     else {
-      return movies.slice(0, sliceMovie * getRenderMoviesToDisplay());
+      return movies.slice(0, getRenderMoviesToDisplay());
     }
   }
 
@@ -58,9 +56,8 @@ function MoviesCardList ({
             requestSaveMovie={requestSaveMovie}
             requestDeleteMovie={requestDeleteMovie}
             isListSavedMovies={isListSavedMovies}
-            likes={likes}
-            setLikes={setLikes}
             arrSavedLikes={arrSavedLikes}
+            setArrSavedLikes={setArrSavedLikes}
             movie={movie}
             key={index}
           />

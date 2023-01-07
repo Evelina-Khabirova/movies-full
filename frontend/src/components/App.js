@@ -43,7 +43,6 @@ function App() {
   const [checked, setChecked] = React.useState(false);
   const [item, setItem] = React.useState([]);
   const [filterMovies, setFilterMovies] = React.useState([]);
-  const [likes, setLikes] = React.useState([]);
   const {pathname} = useLocation();
   const [arrSavedLikes, setArrSavedLikes] = React.useState([]);
   const [displayMovies, setDisplayMovies] = React.useState(0);
@@ -72,13 +71,13 @@ function App() {
 
   function getRenderMoviesToDisplay() {
     if (windowWidth > 768) {
-      return 3;
+      return sliceMovie * 3;
     }
     else if (windowWidth > 480 && windowWidth <= 768) {
-      return 2;
+      return sliceMovie * 2;
     }
     else {
-      return 5;
+      return sliceMovie * 5;
     }
   }
 
@@ -208,8 +207,8 @@ function App() {
       image,
       thumbnail,
     })
-    .then((newMovie) => {
-      setSavedMovies([newMovie, ...savedMovies]);
+    .then((res) => {
+      setSavedMovies([res.data, ...savedMovies]);
     })
     .catch((err) => {
       console.log(err);
@@ -218,7 +217,7 @@ function App() {
 
   function requestDeleteMovie(movie) {
     let id;
-    function findId () {
+    function findId(movie) {
       const arr = savedMovies.find(elem => {
         if (elem.movieId === movie.id) {
           return elem._id;
@@ -227,7 +226,7 @@ function App() {
       id = arr._id;
     }
     switch(pathname) {
-      case '/movies':  findId(); break;
+      case '/movies':  findId(movie); break;
       case '/saved-movies': id = movie._id; break;
     }
     apiMain.deleteMovie(id)
@@ -294,6 +293,8 @@ function App() {
     localStorage.removeItem('Checked');
     localStorage.removeItem('SearchValue');
     localStorage.removeItem('token');
+    setMovieCard([]);
+    setSavedMovies([]);
     setLoggedIn(false);
     navigate('/', {replace: true});
   }
@@ -322,18 +323,16 @@ function App() {
               movies={movieCard}
               getRenderMoviesToDisplay={getRenderMoviesToDisplay}
               handleClickMoreLoad={handleClickMoreLoad}
-              sliceMovie={sliceMovie}
               checked={checked}
               setChecked={setChecked}
               item={item}
               handleClickCheckbox={handleClickCheckbox}
               setFilterMovies={setFilterMovies}
-              likes={likes}
-              setLikes={setLikes}
               arrSavedLikes={arrSavedLikes}
               setDisplayMovies={setDisplayMovies}
               displayMovies={displayMovies}
               isDisabledMore={isDisabledMore}
+              setArrSavedLikes={setArrSavedLikes}
             />
           }>
           </Route>
@@ -350,7 +349,6 @@ function App() {
               setOpenMenu={setOpenMenu}
               getRenderMoviesToDisplay={getRenderMoviesToDisplay}
               handleClickMoreLoad={handleClickMoreLoad}
-              sliceMovie={sliceMovie}
               checked={checked}
               item={item}
               handleClickCheckbox={handleClickCheckbox}
@@ -358,6 +356,8 @@ function App() {
               setDisplayMovies={setDisplayMovies}
               displayMovies={displayMovies}
               isDisabledMore={isDisabledMore}
+              arrSavedLikes={arrSavedLikes}
+              setArrSavedLikes={setArrSavedLikes}
             />
           }
           >

@@ -16,18 +16,16 @@ function Movies({
   setOpenMenu,
   movies,
   getRenderMoviesToDisplay,
-  sliceMovie,
   checked,
   setChecked,
   item,
   handleClickCheckbox,
   setFilterMovies,
-  likes,
-  setLikes,
   arrSavedLikes,
   setDisplayMovies,
   displayMovies,
-  isDisabledMore
+  isDisabledMore,
+  setArrSavedLikes
 }) {
   return(
     <section className='movies'>
@@ -48,14 +46,12 @@ function Movies({
             requestDeleteMovie={requestDeleteMovie}
             errorLoading={errorLoading}
             getRenderMoviesToDisplay={getRenderMoviesToDisplay}
-            sliceMovie={sliceMovie}
             checked={checked}
             setChecked={setChecked}
             item={item}
-            likes={likes}
-            setLikes={setLikes}
             arrSavedLikes={arrSavedLikes}
             setDisplayMovies={setDisplayMovies}
+            setArrSavedLikes={setArrSavedLikes}
           />
           <MoreMovies
             handleClickMoreLoad={handleClickMoreLoad}

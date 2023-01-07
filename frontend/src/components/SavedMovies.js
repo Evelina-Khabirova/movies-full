@@ -14,14 +14,15 @@ function SavedMovies({
   setOpenMenu,
   getRenderMoviesToDisplay,
   handleClickMoreLoad,
-  sliceMovie,
   checked,
   item,
   handleClickCheckbox,
   setFilterMovies,
   setDisplayMovies,
   displayMovies,
-  isDisabledMore
+  isDisabledMore,
+  arrSavedLikes,
+  setArrSavedLikes,
 }) {
   const isListSavedMovies = true;
 
@@ -45,10 +46,11 @@ function SavedMovies({
               isListSavedMovies={isListSavedMovies}
               requestDeleteMovie={requestDeleteMovie}
               getRenderMoviesToDisplay={getRenderMoviesToDisplay}
-              sliceMovie={sliceMovie}
               checked={checked}
               item={item}
               setDisplayMovies={setDisplayMovies}
+              arrSavedLikes={arrSavedLikes}
+              setArrSavedLikes={setArrSavedLikes}
             />
             <MoreMovies
               handleClickMoreLoad={handleClickMoreLoad}
