@@ -14,18 +14,15 @@ function SavedMovies({
   setOpenMenu,
   getRenderMoviesToDisplay,
   handleClickMoreLoad,
-  checked,
-  item,
-  handleClickCheckbox,
-  setFilterMovies,
   setDisplayMovies,
   displayMovies,
   isDisabledMore,
   arrSavedLikes,
   setArrSavedLikes,
+  requestFilterMovies,
+  filterSavedMovies,
 }) {
   const isListSavedMovies = true;
-
   return (
     <section className="saved-movies">
       <HeaderMovies
@@ -37,8 +34,7 @@ function SavedMovies({
             <SearchForm
               movies={savedMovies}
               isLoading={isLoading}
-              handleClickCheckbox={handleClickCheckbox}
-              setFilterMovies={setFilterMovies}
+              requestFilterMovies={requestFilterMovies}
             />
             <MoviesCardList
               movies={savedMovies}
@@ -46,11 +42,10 @@ function SavedMovies({
               isListSavedMovies={isListSavedMovies}
               requestDeleteMovie={requestDeleteMovie}
               getRenderMoviesToDisplay={getRenderMoviesToDisplay}
-              checked={checked}
-              item={item}
               setDisplayMovies={setDisplayMovies}
               arrSavedLikes={arrSavedLikes}
               setArrSavedLikes={setArrSavedLikes}
+              filterSavedMovies={filterSavedMovies}
             />
             <MoreMovies
               handleClickMoreLoad={handleClickMoreLoad}

@@ -1,36 +1,53 @@
 import React, {useEffect, useState} from 'react';
+import { useLocation } from 'react-router-dom';
 
 function SearchForm({
   movies,
   isLoading,
-  handleClickCheckbox,
-  setFilterMovies,
+  requestFilterMovies
 }) {
   const [value, setValue] = useState('');
   const searchStory = localStorage.getItem('SearchValue');
+  const checkboxStory = localStorage.getItem('Checked');
+  const [checkbox, setCheckbox] = useState(false);
+  const {pathname} = useLocation();
 
   React.useEffect(() => {
-    if (searchStory) {
-      setValue(searchStory);
+    if (pathname === '/movies') {
+      if (searchStory) {
+        setValue(searchStory);
+      }
+      if (checkboxStory === 'true') {
+        const checkboxButton = document.getElementById('form-checkbox');
+        checkboxButton.checked = true;
+        setCheckbox(true);
+      }
     }
-  }, [searchStory]);
-
-  function handleCheck() {
-    handleClickCheckbox(movies);
-  }
+  }, [searchStory, checkboxStory]);
 
   function changeValue(e) {
     setValue(e.target.value);
   }
 
-  const searchMovies = movies.filter(movie => {
-    return movie.nameRU.toLowerCase().includes(value.toLowerCase());
-  });
+  function handleCheckbox() {
+    if (checkbox === false) {
+      setCheckbox(true);
+    }
+    else {
+      setCheckbox(false);
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    localStorage.setItem('SearchValue', value);
-    setFilterMovies(searchMovies);
+    if (pathname === '/movies') {
+      localStorage.setItem('SearchValue', value);
+      localStorage.setItem('Checked', checkbox);
+      requestFilterMovies(movies, value, checkbox);
+    }
+    else if (pathname === '/saved-movies') {
+      requestFilterMovies(movies, value, checkbox);
+    }
   }
 
   return (
@@ -60,12 +77,13 @@ function SearchForm({
             type="checkbox"
             id='form-checkbox'
             name='form-checkbox'
-            onClick={handleCheck}
+            onClick={handleCheckbox}
           />
           <span className="search-form__checkbox"></span>
         </label>
         <p className='search-form__text'>Короткометражки</p>
       </div>
+      <p className='search__notification'>Таких фильмов нет</p>
     </div>
   );
 }

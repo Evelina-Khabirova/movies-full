@@ -81,6 +81,8 @@
 @import url(./blocks/search-form/__checkbox-label/search-form__checkbox-label.css);
 @import url(./blocks/search-form/__checkbox/search-form__checkbox.css);
 @import url(./blocks/search-form/__text/search-form__text.css);
+@import url(./blocks/search-form/__notification/search__notification.css);
+@import url(./blocks/search-form/__notification/_active/search__notification_active.css);
 
 @import url(./blocks/movies-card/movies-card.css);
 @import url(./blocks/movies-card/__list/movies-card__list.css);

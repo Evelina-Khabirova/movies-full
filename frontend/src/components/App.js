@@ -40,23 +40,25 @@ function App() {
     setTimeout(setWindowWidth(window.innerWidth), 2000);
   }
   const [sliceMovie, setSliceMovie] = React.useState(1);
-  const [checked, setChecked] = React.useState(false);
-  const [item, setItem] = React.useState([]);
   const [filterMovies, setFilterMovies] = React.useState([]);
+  const [filterSavedMovies, setFilterSavedMovies] = React.useState([]);
   const {pathname} = useLocation();
   const [arrSavedLikes, setArrSavedLikes] = React.useState([]);
   const [displayMovies, setDisplayMovies] = React.useState(0);
 
-  function handleClickCheckbox(mov) {
-    setChecked(!checked);
-    localStorage.setItem('Checked', !checked);
-    const newItem = mov.filter((newVal) => {
-      if (newVal.duration <= 40) {
-        return newVal;
+  React.useEffect(() => {
+    if (localStorage.getItem('loggedIn') === 'true') {
+      tokenCheck();
+    }
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    if (filterSavedMovies.length > 0) {
+      if (pathname !== '/saved-movies') {
+        setFilterSavedMovies([]);
       }
-    });
-    setItem(newItem);
-  }
+    }
+  });
 
   React.useEffect(() => {
     window.addEventListener('resize', detectWindowWidth);
@@ -93,22 +95,48 @@ function App() {
     }
   }
 
+  function requestFilterMovies(movies, searchWord, checkbox) {
+    const notification = document.querySelector('.search__notification');
+    let searchMovies = movies.filter(movie => {
+      return movie.nameRU.toLowerCase().includes(searchWord.toLowerCase());
+    });
+    if (checkbox) {
+      searchMovies = searchMovies.filter((newVal) => {
+        if (newVal.duration <= 40) {
+          return newVal;
+        }
+      });
+    }
+    if (pathname === '/movies') {
+      setFilterMovies(searchMovies);
+    }
+    else if (pathname === '/saved-movies') {
+      setFilterSavedMovies(searchMovies);
+    }
+    if (searchMovies.length === 0) {
+      notification.classList.add('search__notification_active');
+    }
+    else {
+      notification.classList.remove('search__notification_active');
+    }
+  }
+  
   React.useEffect(() => {
     if(loggedIn) {
       apiMovies.getMovies()
       .then((res) => {
-        setMovieCard(res);
-        if(localStorage.getItem('Checked') === 'true') {
-          setChecked(true);
-          const newItem = res.filter((newVal) => {
-            if (newVal.duration <= 40) {
-              return newVal;
-            }
-          });
-          setItem(newItem);
-          const checkboxButton = document.getElementById('form-checkbox');
-          checkboxButton.checked = true;
+        const searchWord = localStorage.getItem('SearchValue');
+        if (searchWord) {
+          let checkbox;
+          if (localStorage.getItem('Checked') === 'true') {
+            checkbox = true;
+          }
+          else {
+            checkbox = false;
+          }
+          requestFilterMovies(res, searchWord, checkbox);
         }
+        setMovieCard(res);
       })
       .catch((err) => {
         console.log(err);
@@ -147,12 +175,6 @@ function App() {
           setLoggedIn(false);
         }
       })
-    }
-  }, [loggedIn]);
-
-  React.useEffect(() => {
-    if (localStorage.getItem('loggedIn') === 'true') {
-      tokenCheck();
     }
   }, [loggedIn]);
 
@@ -232,6 +254,9 @@ function App() {
     apiMain.deleteMovie(id)
     .then((res) => {
       setSavedMovies((state) => state.filter((s) => s._id !== res._id));
+      if (filterSavedMovies.length > 0) {
+        setFilterSavedMovies((state) => state.filter((s) => s._id !== res._id));
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -295,6 +320,10 @@ function App() {
     localStorage.removeItem('token');
     setMovieCard([]);
     setSavedMovies([]);
+    setFilterMovies([]);
+    setFilterSavedMovies([]);
+    setArrSavedLikes([]);
+    setDisplayMovies(0);
     setLoggedIn(false);
     navigate('/', {replace: true});
   }
@@ -323,16 +352,13 @@ function App() {
               movies={movieCard}
               getRenderMoviesToDisplay={getRenderMoviesToDisplay}
               handleClickMoreLoad={handleClickMoreLoad}
-              checked={checked}
-              setChecked={setChecked}
-              item={item}
-              handleClickCheckbox={handleClickCheckbox}
-              setFilterMovies={setFilterMovies}
+              filterMovies={filterMovies}
               arrSavedLikes={arrSavedLikes}
               setDisplayMovies={setDisplayMovies}
               displayMovies={displayMovies}
               isDisabledMore={isDisabledMore}
               setArrSavedLikes={setArrSavedLikes}
+              requestFilterMovies={requestFilterMovies}
             />
           }>
           </Route>
@@ -349,15 +375,13 @@ function App() {
               setOpenMenu={setOpenMenu}
               getRenderMoviesToDisplay={getRenderMoviesToDisplay}
               handleClickMoreLoad={handleClickMoreLoad}
-              checked={checked}
-              item={item}
-              handleClickCheckbox={handleClickCheckbox}
-              setFilterMovies={setFilterMovies}
               setDisplayMovies={setDisplayMovies}
               displayMovies={displayMovies}
               isDisabledMore={isDisabledMore}
               arrSavedLikes={arrSavedLikes}
               setArrSavedLikes={setArrSavedLikes}
+              requestFilterMovies={requestFilterMovies}
+              filterSavedMovies={filterSavedMovies}
             />
           }
           >

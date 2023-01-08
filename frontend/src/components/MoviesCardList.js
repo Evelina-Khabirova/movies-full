@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import MoviesCard from './MoviesCard.js';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCardList ({
   movies,
@@ -7,44 +8,50 @@ function MoviesCardList ({
   requestSaveMovie,
   requestDeleteMovie,
   getRenderMoviesToDisplay,
-  checked,
-  item,
   arrSavedLikes,
   setDisplayMovies,
-  setArrSavedLikes
+  setArrSavedLikes,
+  filterMovies,
+  filterSavedMovies,
 }) {
   const searchStory = localStorage.getItem('SearchValue');
-  const [searchMovies, setSearchMovies] = useState([]);
+  const {pathname} = useLocation();
 
   React.useEffect(() => {
-    if (searchStory) {
-      setSearchMovies(movies.filter(movie => {
-        return movie.nameRU.toLowerCase().includes(searchStory.toLowerCase());
-      }));
+    if (pathname === '/saved-movies') {
+      if (filterSavedMovies.length > 0) {
+        setDisplayMovies(filterSavedMovies.length);
+      }
+      else {
+        setDisplayMovies(movies.length);
+      }
     }
-  }, [searchStory]);
-
-  React.useEffect(() => {
-    if (checked) {
-      setDisplayMovies(item.length);
-    }
-    else if (searchStory) {
-      setDisplayMovies(searchMovies.length);
-    }
-    else {
-      setDisplayMovies(movies.length);
+    else if (pathname === '/movies') {
+      if (searchStory) {
+        setDisplayMovies(filterMovies.length);
+      }
+      else {
+        setDisplayMovies(movies.length);
+      }
     }
   });
 
   function checkArray() {
-    if (checked) {
-      return item.slice(0, getRenderMoviesToDisplay());
+    if (pathname === '/saved-movies') {
+      if (filterSavedMovies.length > 0) {
+        return filterSavedMovies.slice(0, getRenderMoviesToDisplay());
+      }
+      else {
+        return movies.slice(0, getRenderMoviesToDisplay());
+      }
     }
-    else if (searchStory) {
-      return searchMovies.slice(0, getRenderMoviesToDisplay());
-    }
-    else {
-      return movies.slice(0, getRenderMoviesToDisplay());
+    else if (pathname === '/movies') {
+      if (searchStory) {
+        return filterMovies.slice(0, getRenderMoviesToDisplay());
+      }
+      else {
+        return movies.slice(0, getRenderMoviesToDisplay());
+      }
     }
   }
 
