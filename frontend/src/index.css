@@ -117,7 +117,6 @@
 @import url(./blocks/register/__text/register__text.css);
 @import url(./blocks/register/__input/register__input.css);
 @import url(./blocks/register/__button/register__button.css);
-@import url(./blocks/register/__button/_disabled/register__button_disabled.css);
 @import url(./blocks/register/__text-login/register__text-login.css);
 @import url(./blocks/register/__link/register__link.css);
 @import url(./blocks/register/__errors/register__errors.css);
@@ -126,6 +125,7 @@
 @import url(./blocks/profile/__main/profile__main.css);
 @import url(./blocks/profile/__title/profile__title.css);
 @import url(./blocks/profile/__notification/profile__notification.css);
+@import url(./blocks/profile/__notification/_errors/profile__notification_errors.css);
 @import url(./blocks/profile/__notification/_active/profile__notification_active.css);
 @import url(./blocks/profile/__input/profile__input.css);
 @import url(./blocks/profile/__button/profile__button.css);

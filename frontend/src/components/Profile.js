@@ -11,13 +11,19 @@ function Profile ({
 }) {
   const currentUser = React.useContext(CurrentUserContext).find(x => x.name);
   const [values, setValues] = useState({profile_name: '', profile_email: ''});
+  const [userInfoStory, setUserInfoStory] = useState({profile_name: '', profile_email: ''});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
   const button = document.querySelector('.profile__button');
+  const notification = document.querySelector('.profile__notification');
 
   React.useEffect(() => {
     if(currentUser) {
       setValues({
+        profile_name: currentUser.name,
+        profile_email: currentUser.email,
+      });
+      setUserInfoStory({
         profile_name: currentUser.name,
         profile_email: currentUser.email,
       });
@@ -40,12 +46,20 @@ function Profile ({
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleEditUser({
-      name: values.profile_name,
-      email: values.profile_email,
-    });
-    button.classList.add('profile__button_disabled');
-    button.disabled = true;
+    if (userInfoStory.profile_email === values.profile_email && userInfoStory.profile_name === values.profile_name){
+      notification.textContent = 'Нужно изменить хотя бы один символ';
+      notification.classList.add('profile__notification_active');
+      notification.classList.add('profile__notification_errors');
+    }
+    else {
+      notification.classList.remove('profile__notification_errors');
+      handleEditUser({
+        name: values.profile_name,
+        email: values.profile_email,
+      });
+      button.classList.add('profile__button_disabled');
+      button.disabled = true;
+    }
   }
 
   return(
@@ -58,7 +72,7 @@ function Profile ({
           isLoading ? <Preloader /> :
           <div className='profile__main'>
             <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
-            <p className='profile__notification'>Вы успешно изменили данные!</p>
+            <p className='profile__notification'></p>
             <form 
               className='profile__form'
               onSubmit={handleSubmit}

@@ -311,6 +311,7 @@ function App() {
     .finally(() => {
       setIsLoading(false);
     });
+    notification.textContent = 'Вы успешно изменили данные!';
     notification.classList.add('profile__notification_active');
   }
 
