@@ -13,6 +13,7 @@ import ProtectedRoute from './ProtectedRoute.js';
 import ProtectedRouteUnaftor from './ProtectedRouteUnaftor.js';
 import MainApi from '../utils/MainApi.js';
 import MoviesApi from '../utils/MoviesApi.js';
+import {MAX_WINDOW, COMPUTER_WINDOW, TABLET_WINDOW, SHORT_FILMS} from '../utils/utils.js';
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const detectWindowWidth = () => {
-    setTimeout(setWindowWidth(window.innerWidth), 2000);
+    setTimeout(setWindowWidth(window.innerWidth), MAX_WINDOW);
   }
   const [sliceMovie, setSliceMovie] = React.useState(1);
   const [filterMovies, setFilterMovies] = React.useState([]);
@@ -92,10 +93,10 @@ function App() {
   }
 
   function getRenderMoviesToDisplay() {
-    if (windowWidth > 768) {
+    if (windowWidth > COMPUTER_WINDOW) {
       return sliceMovie * 3;
     }
-    else if (windowWidth > 480 && windowWidth <= 768) {
+    else if (windowWidth > TABLET_WINDOW && windowWidth <= COMPUTER_WINDOW) {
       return sliceMovie * 2;
     }
     else {
@@ -104,10 +105,10 @@ function App() {
   }
 
   function isDisabledMore(how) {
-    if (windowWidth > 768) {
+    if (windowWidth > COMPUTER_WINDOW) {
       return sliceMovie * 3 >= how;
     }
-    else if (windowWidth > 320 && windowWidth <= 768) {
+    else if (windowWidth > TABLET_WINDOW && windowWidth <= COMPUTER_WINDOW) {
       return sliceMovie * 2 >= how;
     }
     else {
@@ -122,7 +123,7 @@ function App() {
     });
     if (checkbox) {
       searchMovies = searchMovies.filter((newVal) => {
-        if (newVal.duration <= 40) {
+        if (newVal.duration <= SHORT_FILMS) {
           return newVal;
         }
       });

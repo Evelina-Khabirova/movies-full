@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
+import {HOUR} from '../utils/utils.js';
 
 function MoviesCard({
   movie,
@@ -10,7 +11,7 @@ function MoviesCard({
   setArrSavedLikes
 }) {
   const [isSaved, setIsSaved] = React.useState(false);
-  const duration = `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}мин`;
+  const duration = `${Math.trunc(movie.duration / HOUR)}ч ${movie.duration % HOUR}мин`;
   const {pathname} = useLocation();
 
   function handleSavedMovie(e) {
