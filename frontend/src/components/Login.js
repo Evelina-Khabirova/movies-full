@@ -7,6 +7,7 @@ function Login ({
   logged,
   isLoading
 }) {
+  const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
   const [values, setValues] = useState({login_email: '', login_password: ''});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
@@ -17,7 +18,20 @@ function Login ({
       ...prev,
       [target.name] : target.value
     }));
-    setErrors({...errors, [target.name]: target.validationMessage});
+    if (target.name === 'login_email') {
+      if (target.validationMessage !== '') {
+        setErrors({...errors, [target.name]: target.validationMessage});
+      }
+      else if (!EMAIL_REGEXP.test(target.value)) {
+        setErrors({...errors, [target.name]: 'Адрес электронной почты введен неверно. Введите, например, test@mail.ru'});
+      }
+      else {
+        setErrors({...errors, [target.name]: ''});
+      }
+    }
+    else {
+      setErrors({...errors, [target.name]: target.validationMessage});
+    }
     setIsValid(target.closest('form').checkValidity());
   }
 
@@ -71,7 +85,7 @@ function Login ({
             maxLength='30'
           />
           <span className='login__error' id='login_password_type_error'>
-            {`${errors.login_email===undefined ? '' : errors.login_email}`}
+            {`${errors.login_password===undefined ? '' : errors.login_password}`}
           </span>
           <button
             className='login__button'

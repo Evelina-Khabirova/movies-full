@@ -9,6 +9,7 @@ function Profile ({
   handleEditUser,
   setOpenMenu
 }) {
+  const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
   const currentUser = React.useContext(CurrentUserContext).find(x => x.name);
   const [values, setValues] = useState({profile_name: '', profile_email: ''});
   const [errors, setErrors] = React.useState({});
@@ -32,7 +33,20 @@ function Profile ({
       ...prev,
       [target.name]: target.value
     }));
-    setErrors({...errors, [target.name]: target.validationMessage});
+    if (target.name === 'profile_email') {
+      if (target.validationMessage !== '') {
+        setErrors({...errors, [target.name]: target.validationMessage});
+      }
+      else if (!EMAIL_REGEXP.test(target.value)) {
+        setErrors({...errors, [target.name]: 'Адрес электронной почты введен неверно. Введите, например, test@mail.ru'});
+      }
+      else {
+        setErrors({...errors, [target.name]: ''});
+      }
+    }
+    else {
+      setErrors({...errors, [target.name]: target.validationMessage});
+    }
     setIsValid(target.closest('form').checkValidity());
     button.classList.remove('profile__button_disabled');
     button.disabled = false;
@@ -90,7 +104,7 @@ function Profile ({
                 disabled={isLoading}
               />
               <span className='profile__error' id='profile_email_type_error'>
-                {`${errors.profile_name===undefined ? '' : errors.profile_name}`}
+                {`${errors.profile_email===undefined ? '' : errors.profile_email}`}
               </span>
               <button
                 className='profile__button profile__button_disabled'

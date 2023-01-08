@@ -7,6 +7,7 @@ function Register({
   register,
   isLoading,
 }) {
+  const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
   const [values, setValues] = useState({register_name: '', register_email: '', register_password: ''});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
@@ -17,7 +18,20 @@ function Register({
       ...prev,
       [target.name] : target.value
     }));
-    setErrors({...errors, [target.name]: target.validationMessage});
+    if (target.name === 'register_email') {
+      if (target.validationMessage !== '') {
+        setErrors({...errors, [target.name]: target.validationMessage});
+      }
+      else if (!EMAIL_REGEXP.test(target.value)) {
+        setErrors({...errors, [target.name]: 'Адрес электронной почты введен неверно. Введите, например, test@mail.ru'});
+      }
+      else {
+        setErrors({...errors, [target.name]: ''});
+      }
+    }
+    else {
+      setErrors({...errors, [target.name]: target.validationMessage});
+    }
     setIsValid(target.closest('form').checkValidity());
   }
 
@@ -72,7 +86,7 @@ function Register({
               maxLength='30'
             />
             <span className='register__error' id='register_email_type_error'>
-              {`${errors.register_name===undefined ? '' : errors.register_name}`}
+              {`${errors.register_email===undefined ? '' : errors.register_email}`}
             </span>
             <p className='register__text'>Пароль</p>
             <input
@@ -88,7 +102,7 @@ function Register({
               maxLength='30'
             />
             <span className='register__error' id='register_password_type_error'>
-              {`${errors.register_name===undefined ? '' : errors.register_name}`}
+              {`${errors.register_password===undefined ? '' : errors.register_password}`}
             </span>
             <button
               className='register__button'
