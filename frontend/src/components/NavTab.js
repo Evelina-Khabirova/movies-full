@@ -1,23 +1,22 @@
 import React from "react";
-import { Link, useLocation } from 'react-router-dom';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { Link } from 'react-router-dom';
 import accountImg from '../images/icon__COLOR_icon-account.svg';
 
 function NavTab({
-  isOpen
+  openMenu,
+  setOpenMenu
 }) {
-  const [openNavTab, setOpenNavTab] = React.useContext(CurrentUserContext);
 
   function closeNavTab() {
-    setOpenNavTab(false);
+    setOpenMenu(false);
   }
 
   function closeOverlay(e) {
-    return e.target.classList.contains('navtab') && setOpenNavTab(false);
+    return e.target.classList.contains('navtab') && setOpenMenu(false);
   }
   return(
     <div 
-      className={`navtab ${!openNavTab ? 'navtab__hidden' : ''}`}
+      className={`navtab ${!openMenu ? 'navtab__hidden' : ''}`}
       onClick={closeOverlay}
     >
       <div className="navtab__container">

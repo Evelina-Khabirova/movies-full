@@ -3,6 +3,7 @@
   height: 151px;
   grid-area: image;
   object-fit: cover;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 770px) {

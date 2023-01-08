@@ -2,14 +2,23 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import headerLogo from '../images/logo.svg';
 import accountImg from '../images/icon__COLOR_icon-account.svg';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function HeaderMovies() {
-  const [, setOpenNavTab] = React.useContext(CurrentUserContext);
+function HeaderMovies({
+  setOpenMenu
+}) {
+  const {pathname} = useLocation();
+  let styleMain ='';
+  let styleBox = '';
+  switch(pathname) {
+    case '/': styleMain='header'; styleBox='header-movies__burger-menu-main'; break;
+    default: styleMain='header-movies'; styleBox='header-movies__burger-menu-movie'; break;
+  }
+
+
   return (
-    <div className='header-movies'>
-      <Link to={'/'}><img src={headerLogo} alt="Логотип" className="header-movies__logo" /></Link>
-      <div className='header-movies__link-box'>
+    <div className={`${styleMain}`}>
+      <Link to={'/'}><img src={headerLogo} alt="Логотип" className='header-movies__logo' /></Link>
+      <div className={`header-movies__link-box`}>
         <Link to={'/movies'} className="header-movies__films">Фильмы</Link>
         <Link to={'/saved-movies'} className="header-movies__save-films">Сохранённые фильмы</Link>
         <Link to={'/profile'} className="header-movies__account-link-box">
@@ -18,10 +27,10 @@ function HeaderMovies() {
         </Link>
       </div>
       <button
-        className='header-movies__burger-menu'
+        className={`header-movies__burger-menu ${styleBox}`}
         type='button'
         aria-label='Меню'
-        onClick={setOpenNavTab}
+        onClick={setOpenMenu}
       ></button>
     </div>
   );
