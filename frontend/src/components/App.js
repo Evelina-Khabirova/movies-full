@@ -10,6 +10,7 @@ import Profile from './Profile.js';
 import ErrorMessage from './ErrorMessage.js';
 import NavTab from './NavTab.js';
 import ProtectedRoute from './ProtectedRoute.js';
+import ProtectedRouteUnaftor from './ProtectedRouteUnaftor.js';
 import MainApi from '../utils/MainApi.js';
 import MoviesApi from '../utils/MoviesApi.js';
 
@@ -46,6 +47,25 @@ function App() {
   const [arrSavedLikes, setArrSavedLikes] = React.useState([]);
   const [displayMovies, setDisplayMovies] = React.useState(0);
 
+  function tokenCheck() {
+    handleToken()
+    apiMain.getToken()
+    .then((res) => {
+      setCurrentUser({
+        _id: res._id,
+        name: res.name,
+        email: res.email,
+      });
+      setLoggedIn(true);
+    })
+    .catch((err) => {
+      console.log(err);
+      navigate('/', {replace: true});
+      localStorage.clear();
+      setLoggedIn(false);
+    });
+  }
+  
   React.useEffect(() => {
     if (localStorage.getItem('loggedIn') === 'true') {
       tokenCheck();
@@ -177,30 +197,6 @@ function App() {
       })
     }
   }, [loggedIn]);
-
-  function tokenCheck() {
-    handleToken()
-    apiMain.getToken()
-    .then((res) => {
-      setCurrentUser({
-        _id: res._id,
-        name: res.name,
-        email: res.email,
-      });
-      setLoggedIn(true);
-    })
-    .catch((err) => {
-      console.log(err);
-      navigate('/', {replace: true});
-      localStorage.clear();
-      setLoggedIn(false);
-    });
-  }
-
-  React.useEffect(() => {
-    setLoggedIn(false);
-    tokenCheck();
-  }, []);
 
   function requestSaveMovie(movie) {
     const image=`https://api.nomoreparties.co${movie.image.url}`;
@@ -401,15 +397,21 @@ function App() {
           }>
           </Route>
           <Route path='/signin' element={
-            <Login
+            <ProtectedRouteUnaftor
+              loggedIn={loggedIn}
+              path='/signin'
+              component={Login}
               logged={handleLoginUser}
               isLoading={isLoading}
             />
           }>
           </Route>
           <Route path='/signup' element={
-            <Register
-              register={handleRegisterUser}
+            <ProtectedRouteUnaftor
+              loggedIn={loggedIn}
+              path='/signup'
+              component={Register}
+              logged={handleLoginUser}
               isLoading={isLoading}
             />
           }>
