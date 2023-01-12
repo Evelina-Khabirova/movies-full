@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import HeaderMovies from './HeaderMovies.js';
 import SearchForm from './SearchForm.js';
 import MoviesCardList from './MoviesCardList.js';
@@ -7,17 +7,52 @@ import Footer from './Footer.js';
 import Preloader from './Preloader.js';
 
 
-function Movies() {
-  const [isLoading, setLoading] = React.useState(false);
+function Movies({
+  isLoading,
+  errorLoading,
+  handleClickMoreLoad,
+  requestSaveMovie,
+  requestDeleteMovie,
+  setOpenMenu,
+  movies,
+  getRenderMoviesToDisplay,
+  arrSavedLikes,
+  setDisplayMovies,
+  displayMovies,
+  isDisabledMore,
+  setArrSavedLikes,
+  requestFilterMovies,
+  filterMovies,
+}) {
   return(
     <section className='movies'>
-      <HeaderMovies />
+      <HeaderMovies
+        setOpenMenu={setOpenMenu}
+      />
       <div>
-        {isLoading ? <Preloader /> : <div>
-          <SearchForm />
-          <MoviesCardList />
-          <MoreMovies />
-          </div>
+        {isLoading ? <Preloader /> : <>
+          <SearchForm
+            movies={movies}
+            isLoading={isLoading}
+            requestFilterMovies={requestFilterMovies}
+          />
+          <MoviesCardList
+            movies={movies}
+            requestSaveMovie={requestSaveMovie}
+            requestDeleteMovie={requestDeleteMovie}
+            errorLoading={errorLoading}
+            getRenderMoviesToDisplay={getRenderMoviesToDisplay}
+            arrSavedLikes={arrSavedLikes}
+            setDisplayMovies={setDisplayMovies}
+            setArrSavedLikes={setArrSavedLikes}
+            filterMovies={filterMovies}
+          />
+          <MoreMovies
+            handleClickMoreLoad={handleClickMoreLoad}
+            isDisabledMore={isDisabledMore}
+            movies={displayMovies}
+          />
+          </>
         }
       </div>
       <Footer />
